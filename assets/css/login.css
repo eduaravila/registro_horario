@@ -1,0 +1,12 @@
+.row{
+    display: flex;
+    justify-content: center;
+}
+.login-card-body{
+    border-radius: .3rem;
+}
+
+.btn-login{
+    font-weight: bold !important;
+    border-radius: .3rem !important;
+}
