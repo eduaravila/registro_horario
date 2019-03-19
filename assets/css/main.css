@@ -12,3 +12,26 @@ background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, F
     border-top: 5px solid #3c8dbc;
     box-shadow: 3px 5px 6px 0px #676767;
 }
+
+
+.btn-secondary{
+    background: rgb(199, 199, 199);
+    color:white;
+    font-weight: bold;
+    transition: all .2s;
+}
+.btn-danger{
+    background: rgb(245, 245, 245);
+    color:red;
+    border:2px solid red;
+    border-radius: .3rem;
+    font-weight: bold;
+    transition: all .2s;
+}
+
+.btn-danger:hover{
+    background: rgb(255, 0, 0);
+    color:rgb(255, 255, 255);
+    border:2px solid rgb(255, 255, 255);
+    border-radius: .3rem;
+}
