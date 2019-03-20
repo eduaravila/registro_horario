@@ -13,13 +13,19 @@ background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, F
     box-shadow: 3px 5px 6px 0px #676767;
 }
 
-
+.modal-backdrop.fade.in{
+    display: none !important;
+}
 .btn-secondary{
     background: rgb(199, 199, 199);
     color:white;
     font-weight: bold;
     transition: all .2s;
 }
+.modal-dialog.modal-dialog-centered{
+    top: 20% !important;
+}
+
 .btn-danger{
     background: rgb(245, 245, 245);
     color:red;
