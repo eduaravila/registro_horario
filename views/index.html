@@ -224,10 +224,9 @@
                             ><option value="50">50</option
                             ><option value="100">100</option></select
                           >
-                          </label
-						>
-					</div>
-					<button>Agregar</button>
+                        </label>
+                      </div>
+                      <button>Agregar</button>
                     </div>
                     <div class="col-sm-12 col-md-6">
                       <div id="example1_filter" class="dataTables_filter">
@@ -532,30 +531,49 @@
               </ul>
             </li>
           </ul>
-		</section>
-		
+        </section>
 
-		<div class="modal fade" id="modal_confirmar_eliminar" tabindex="-1" role="dialog" aria-labelledby="modal_confirmar_eliminarTitle" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					  </button>
-					</div>
-					<div class="modal-body">
-					  ...
-					</div>
-					<div class="modal-footer">
-					  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					  <button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				  </div>
-				</div>
-			  </div>
-
-
+        <div
+          class="modal fade"
+          id="modal_confirmar_eliminar"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="modal_confirmar_eliminarTitle"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">
+                  Modal title
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- /.sidebar -->
       </aside>
@@ -563,8 +581,8 @@
       <script src="/assets/jquery/dist/jquery.min.js"></script>
       <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
       <script src="/dist/js/adminlte.min.js"></script>
-	  <script src="/dist/js/demo.js"></script>
-	  
+      <script src="/dist/js/demo.js"></script>
+
       <script>
         let informacion = [
           {
@@ -572,53 +590,106 @@
             apellido: "Avila",
             correo: "jesus.amancilla@alumnos.udg.mx",
             codigo: 213746613,
-            UUID: "hfgw68768wefw7e6f87"
+            UUID: "hfgw68768wefw7e6f87",
+            nuevo:"Hola soy nuevo por aqui HI!"
           },
           {
             nombre: "Jonatan",
             apellido: "Arabe",
             correo: "jonatan.arabe@alumnos.udg.mx",
             codigo: 323333245,
-            UUID: "gerh7987987ehr"
+            UUID: "gerh7987987ehr",
+            nuevo:"Hola soy nuevo por aqui HI!"
+
           },
           {
             nombre: "Babo",
             apellido: "Regetonero",
             correo: "babo.regetonero@alumnos.udg.mx",
             codigo: 374661321,
-            UUID: "fwegwegg554636"
+            UUID: "fwegwegg554636",
+            nuevo:"Hola soy nuevo por aqui HI!"
+
           }
         ];
         let buscar_barra = document.querySelector("#buscar_crud");
         let buscar_tipo_filtro = document.querySelector("#tipo_filtro");
-		buscar_tipo_filtro.addEventListener('change',(e)=>{
-			let {value} = e.target
-			filtrar_infomacion(informacion)(buscar_barra.value)
-		})
+
+        buscar_tipo_filtro.addEventListener("change", e => {
+          let { value } = e.target;
+          filtrar_infomacion(informacion)(buscar_barra.value);
+        });
         const filtrar_infomacion = info => {
           return e => {
-            let  value = !!e.target ? e.target.value : e;
+            let value = !!e.target ? e.target.value : e;
             let info_nueva = [
-              ...info.filter(i => i[buscar_tipo_filtro.value].toLowerCase().includes(value.toLowerCase()))
+              ...info.filter(i =>
+                i[buscar_tipo_filtro.value]
+                  .toLowerCase()
+                  .includes(value.toLowerCase())
+              )
             ];
             console.log(info_nueva);
 
             poblar_tabla(info_nueva);
           };
         };
-        buscar_barra.addEventListener(
-          "keyup",
-          filtrar_infomacion(informacion)
-        );
+        buscar_barra.addEventListener("keyup", filtrar_infomacion(informacion));
 
+        const poblar_tabla_headers = info => {
+          let select_filtro = document.querySelector('#tipo_filtro')
+
+          let tabla_inicio = document
+            .querySelector("#contenido_crud")
+            .querySelector("thead");
+          console.log(tabla_inicio);
+
+          let tabla_fin = document
+            .querySelector("#contenido_crud")
+            .querySelector("tfoot");
+
+          tabla_inicio.innerHTML = "";
+          tabla_fin.innerHTML = "";
+          select_filtro.innerHTML=""
+
+          let renglon_padre = document.createElement("tr");
+          let editar_renglon = document.createElement("th");
+          editar_renglon.setAttribute("rowspan", 1);
+          editar_renglon.setAttribute("colspan", 1);
+          editar_renglon.innerHTML = "Editar";
+
+          let eliminar_renglon = document.createElement("th");
+          eliminar_renglon.setAttribute("rowspan", 1);
+          eliminar_renglon.setAttribute("colspan", 1);
+          eliminar_renglon.innerHTML = "eliminar";
+
+          renglon_padre.append(editar_renglon);
+          renglon_padre.append(eliminar_renglon);
+
+          let llaves = Object.keys(info[0]);
+          llaves.map(i => {
+            let opcion_select = document.createElement('option')
+            opcion_select.setAttribute('value',i)
+            opcion_select.innerHTML=i
+            let renglo_llave = document.createElement("th");
+            renglo_llave.setAttribute("rowspan", 1);
+            renglo_llave.setAttribute("colspan", 1);
+            renglo_llave.innerHTML = i;
+            renglon_padre.append(renglo_llave);
+            select_filtro.append(opcion_select)
+          });
+          let renglon_padre_inicio = renglon_padre.cloneNode(true);
+          tabla_inicio.append(renglon_padre_inicio);
+          tabla_fin.append(renglon_padre);
+        };
         const poblar_tabla = info => {
-
-// 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-//   Launch demo modal
-// </button>
+          // 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+          //   Launch demo modal
+          // </button>
           let tabla = document
             .querySelector("#contenido_crud")
             .querySelector("tbody");
+
           tabla.innerHTML = "";
           info.map(i => {
             let renglon = document.createElement("tr");
@@ -637,8 +708,11 @@
             td_renglon_eliminar.setAttribute("class", "sorting_1");
             let link_eliminar = document.createElement("a");
             link_eliminar.innerHTML = "Eliminar";
-			link_eliminar.setAttribute('data-toggle','modal')
-			link_eliminar.setAttribute('data-target','#modal_confirmar_eliminar')
+            link_eliminar.setAttribute("data-toggle", "modal");
+            link_eliminar.setAttribute(
+              "data-target",
+              "#modal_confirmar_eliminar"
+            );
             link_eliminar.setAttribute("href", `/eliminar?${i.UUID}`);
             link_eliminar.setAttribute("type", "button");
             link_eliminar.setAttribute("class", "btn btn-danger");
@@ -657,6 +731,7 @@
         };
 
         poblar_tabla(informacion);
+        poblar_tabla_headers(informacion);
         // <tr role="row" class="even">
         //                     <td class="sorting_1">
         //                       <a
